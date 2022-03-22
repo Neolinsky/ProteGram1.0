@@ -8,7 +8,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Icons\add.png" />
+    <None Remove="Icons\log-in.png" />
+    <None Remove="Icons\send.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="MVVM\View\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="WTelegramClient" Version="2.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\add.png" />
+    <Resource Include="Icons\log-in.png" />
+    <Resource Include="Icons\send.png" />
   </ItemGroup>
 
 </Project>

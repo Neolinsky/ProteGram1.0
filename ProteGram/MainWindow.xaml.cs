@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProteGram.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,16 +21,31 @@ namespace ProteGram
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+
+        public static TClient cl = new TClient();
+        
+        
+
+        public  MainWindow()
         {
+            Window LoginWindnow = new LogIn();
+            LoginWindnow.ShowDialog();
+
             InitializeComponent();
+
+            UserNameLabel.Content = $"{cl.my.first_name.ToString()}";
+            
         }
+
+
+        
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if(e.LeftButton == MouseButtonState.Pressed)
             {
                 DragMove();
+                
             }
         }
 
@@ -51,6 +67,12 @@ namespace ProteGram
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             Application.Current.MainWindow.Close();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            Window LoginWindnow = new LogIn();
+            LoginWindnow.ShowDialog();
         }
     }
 }

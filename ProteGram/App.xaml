@@ -10,6 +10,8 @@
                 <ResourceDictionary Source="./Theames/ContactCard.xaml"/>
                 <ResourceDictionary Source="./Theames/ChatItem.xaml"/>
                 <ResourceDictionary Source="./Theames/MessageBox.xaml"/>
+
+                
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
