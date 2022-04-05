@@ -14,7 +14,7 @@
     <Window.DataContext>
         <viewmodel:MainViewModel/>
     </Window.DataContext>
-        
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -22,15 +22,16 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="49"/>
+            <ColumnDefinition Width="151"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <!-- upper panel with close minimize button -->
-        <Border Grid.ColumnSpan="2"
+        <Border Grid.ColumnSpan="3"
                 Background="#252525" MouseDown="Border_MouseDown">
 
-            <Grid HorizontalAlignment="Stretch">    
+            <Grid HorizontalAlignment="Stretch">
                 <Label Content="ProtoGram"
                        Foreground="gray" FontWeight="SemiBold"/>
 
@@ -47,20 +48,20 @@
                             Background="Transparent" Foreground="gray" 
                             BorderThickness="0" FontWeight="Bold"
                             Click="Button_Click" FontSize="16"/>
-                    
+
                     <Button Width="20" Height="20" Content="✕" 
                             Background="Transparent" Foreground="gray" 
                             BorderThickness="0" FontWeight="Bold"
                             Click="Button_Click_2" FontSize="15" Margin="0,0,3,0"/>
 
                 </StackPanel>
-                
+
             </Grid>
-            
+
         </Border>
 
         <!-- User chats -->
-        <Grid Background="#2F3136" Grid.Row="1">
+        <Grid Background="#2F3136" Grid.Row="1" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition/>
@@ -80,7 +81,7 @@
                       Grid.Row="1"
                       ItemContainerStyle="{StaticResource ContactCard}"/>
 
-            
+
             <!-- Status indecator
                 at least for now.. When the time comes i will change it -->
             <StackPanel Grid.Row="2" Orientation="Horizontal"
@@ -103,8 +104,8 @@
                            FontSize="10"
                             Margin="0,-8,0,-5"/>
                 </StackPanel>
-                           
-                    <Button Width="35" Height="35" 
+
+                <Button Width="35" Height="35" 
                         Margin="20,0,10,0"
                         BorderThickness="0" Click="Button_Click_3"
                             Background="Transparent" x:Name="DoorButton">
@@ -113,14 +114,14 @@
                     </Grid>
 
                 </Button>
-               
-                
-                
+
+
+
             </StackPanel>
 
         </Grid>
 
-        <Grid  Grid.Column="1" 
+        <Grid  Grid.Column="2" 
                Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -137,7 +138,7 @@
                     <Label Content="@Username"
                            Foreground="White"
                            Margin="5,0,5,0"
-                           VerticalAlignment="Center"/> 
+                           VerticalAlignment="Center"/>
                 </Grid>
             </Border>
 
@@ -175,7 +176,7 @@
                            Margin="5,5,16,0"/>
 
                 </StackPanel>
-                
+
             </Grid>
 
         </Grid>

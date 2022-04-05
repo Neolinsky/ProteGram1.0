@@ -39,7 +39,7 @@ namespace ProteGram
             MainWindow.cl.my = await MainWindow.cl.client.LoginUserIfNeeded();
             // have to be carreful here
 
-           if(MainWindow.cl.my != null)
+            if (MainWindow.cl.my != null)
             {
                 this.Close();
 
@@ -50,10 +50,8 @@ namespace ProteGram
         private void  LogInButton_Click(object sender, RoutedEventArgs e)
         {
           confCode  = this.Conf_CodeField.Text.ToString();
-            //GetCode();
-            //string name = MainWindow.cl.my.username;
-           
-          GetCode();
+           GetCode();
+
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)

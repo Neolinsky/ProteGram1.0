@@ -29,7 +29,7 @@
                             </Ellipse>
 
                             <StackPanel>
-                                <Label Content="{Binding Username}"
+                                <Label Content="{Binding first_name}"
                                        Foreground="White"/>
 
                                 <Label Content="{Binding LastMessage}"

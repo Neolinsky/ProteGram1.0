@@ -23,22 +23,22 @@ namespace ProteGram
     {
 
         public static TClient cl = new TClient();
-        
-        
 
         public  MainWindow()
         {
             Window LoginWindnow = new LogIn();
             LoginWindnow.ShowDialog();
 
-            InitializeComponent();
 
+            InitializeComponent();
             UserNameLabel.Content = $"{cl.my.first_name.ToString()}";
+
             
+
+
         }
 
 
-        
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
