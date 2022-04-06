@@ -1,4 +1,5 @@
 ﻿using ProteGram.Core;
+using ProteGram.MVVM.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TL;
 
 namespace ProteGram
 {
@@ -23,22 +25,19 @@ namespace ProteGram
     {
 
         public static TClient cl = new TClient();
+        public Messages_MessagesBase Msgbase;
 
         public  MainWindow()
         {
             Window LoginWindnow = new LogIn();
             LoginWindnow.ShowDialog();
 
-
             InitializeComponent();
             UserNameLabel.Content = $"{cl.my.first_name.ToString()}";
 
-            
-
+          
 
         }
-
-
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -50,7 +49,6 @@ namespace ProteGram
         }
 
       
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (Application.Current.MainWindow.WindowState != WindowState.Maximized)
@@ -73,6 +71,39 @@ namespace ProteGram
         {
             Window LoginWindnow = new LogIn();
             LoginWindnow.ShowDialog();
+        }
+
+
+
+        private async void ContactsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            ContactModel? selectedContact = ContactsListView.SelectedItem as ContactModel;
+
+            UserYouChatWith.Content = selectedContact.User.first_name;
+            selectedContact.Messages.Clear();
+            
+
+            Msgbase = await cl.client.Messages_GetHistory(selectedContact.User.ToInputPeer());
+
+
+            foreach (var msg in Msgbase.Messages.Reverse())
+            {
+                if (msg is Message ms)
+                {
+                   selectedContact.Messages.Add(new MessageModel
+                    {
+                        Username = selectedContact.User.username,
+                        UsernameColor = "#4098ff",
+                        ImageSource = selectedContact.User.photo,
+                        Message = ms.message,
+                        Time = ms.date,
+                        IsNativeOrigin = ms.id != cl.my.id ? false : true,
+                        FirstMessage = false
+                    });
+
+                }
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using TL;
 
 namespace ProteGram.MVVM.ViewModel
@@ -38,30 +39,32 @@ namespace ProteGram.MVVM.ViewModel
 
             foreach (var (id, user) in Dialogs.users)
             {
-                var messages = await MainWindow.cl.client.Messages_GetHistory(user.ToInputPeer());
-                foreach (var msg in messages.Messages)
-                {
-                    if(msg is Message ms)
-                    {
-                        Messages.Add(new MessageModel
-                        {
-                            Username = user.username,
-                            UsernameColor = "#4098ff",
-                            ImageSource = user.photo,
-                            Message = ms.message,
-                            Time = msg.Date,
-                            IsNativeOrigin = msg.ID != MainWindow.cl.my.ID ? false : true,
-                            FirstMessage = false
-                        });
+                //var messages = await MainWindow.cl.client.Messages_GetHistory(user.ToInputPeer(),-5);
+                //foreach (var msg in messages.Messages)
+                //{
+                //    //if(msg is Message ms)
+                //    //{
+                //    //    Messages.Add(new MessageModel
+                //    //    {
+                //    //        Username = user.username,
+                //    //        UsernameColor = "#4098ff",
+                //    //        ImageSource = user.photo,
+                //    //        Message = ms.message,
+                //    //        Time = msg.Date,
+                //    //        IsNativeOrigin = msg.ID != MainWindow.cl.my.ID ? false : true,
+                //    //        FirstMessage = false
+                //    //    });
                         
-                    }
+                //    //}
 
                     
-                }
+                //}
 
                 Contacts.Add(new ContactModel
                 {
                     first_name = user.first_name,
+                    User = user,
+                    UserID = user.ID,
                     last_name = user.last_name,
                     Username = user.username,
                     ImageSource = user.photo,
@@ -70,14 +73,10 @@ namespace ProteGram.MVVM.ViewModel
                 });
             }
 
-           
-
         }
 
-        
 
-
-    private string _message;
+        private string _message;
 
         public string Message
         {
@@ -88,6 +87,8 @@ namespace ProteGram.MVVM.ViewModel
             }
         }
 
+
+        
          
         public MainViewModel()
         {
@@ -101,6 +102,8 @@ namespace ProteGram.MVVM.ViewModel
                     Message = Message,
                     FirstMessage = false
                 });
+
+              MainWindow.cl.client.SendMessageAsync(SelectedContact.User.ToInputPeer(), Message);
             });
 
 
@@ -168,9 +171,6 @@ namespace ProteGram.MVVM.ViewModel
             //    });
             //}
             #endregion
-
-
-
 
         }
     }

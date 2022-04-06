@@ -13,10 +13,7 @@ namespace ProteGram.Core
     {
 
        public WTelegram.Client client;
-       public WTelegram.Client clientStandart;
        public TL.User my;
-
-       
 
         public  async Task InitiolizeClient()
         {
@@ -24,8 +21,6 @@ namespace ProteGram.Core
             my = await client.LoginUserIfNeeded();
             
         }
-
-
 
         public static string Config(string what)
         {
