@@ -29,6 +29,7 @@ namespace ProteGram
             InitializeComponent();
         }
 
+        #region moving, closing, minimizing and maximizing Log in window.
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
@@ -55,6 +56,7 @@ namespace ProteGram
         {
             this.Close();
         }
+        #endregion
 
         private void LogInButton_Click(object sender, RoutedEventArgs e)
         {
@@ -76,8 +78,14 @@ namespace ProteGram
                 Password = this.Password_Field.Text.ToString();
             }
 
-           Window ConfCodeWIndow = new codeConfWindow();
-           ConfCodeWIndow.ShowDialog();
+            Window ConfCodeWIndow = new codeConfWindow();
+            ConfCodeWIndow.ShowDialog();
+
+            // It waits for user to log in.
+            while(!MainWindow.LogedIn){};
+
+            // And when user is finaly loged in this window closes on it's own.
+            this.Close();
         }
     }
 }

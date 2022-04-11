@@ -23,26 +23,29 @@ namespace ProteGram
 
         public static string confCode;
         
+        // Here we authorize our Telegram client with the phone number we got from Log in window.
         public codeConfWindow()
         {
-
           MainWindow.cl.client = new WTelegram.Client(TClient.Config);
 
             GetCode();
             InitializeComponent();
-
         }
 
-
+        /// <summary>
+        /// This function tries to log use if needed and sends makes telegram to send confirmatin code
+        /// </summary>
+        /// <returns></returns>
         public async Task GetCode()
         {
             MainWindow.cl.my = await MainWindow.cl.client.LoginUserIfNeeded();
             // have to be carreful here
 
+            // It awaits the authorization process and then closes the winodow.
             if (MainWindow.cl.my != null)
             {
+                MainWindow.LogedIn = true;
                 this.Close();
-
             }
         }
 
