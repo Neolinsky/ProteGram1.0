@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TL;
 
 namespace ProteGram
 {
@@ -26,11 +27,13 @@ namespace ProteGram
         // Here we authorize our Telegram client with the phone number we got from Log in window.
         public codeConfWindow()
         {
-          MainWindow.cl.client = new WTelegram.Client(TClient.Config);
-
+            MainWindow.cl.client = new WTelegram.Client(TClient.Config);       
             GetCode();
+
             InitializeComponent();
         }
+
+    
 
         /// <summary>
         /// This function tries to log use if needed and sends makes telegram to send confirmatin code
@@ -45,6 +48,8 @@ namespace ProteGram
             if (MainWindow.cl.my != null)
             {
                 MainWindow.LogedIn = true;
+                MainWindow.Users[MainWindow.cl.my.id] = MainWindow.cl.my;
+
                 this.Close();
             }
         }

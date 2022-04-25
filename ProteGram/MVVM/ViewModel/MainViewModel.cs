@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Media;
 using TL;
 
 namespace ProteGram.MVVM.ViewModel
@@ -37,29 +38,10 @@ namespace ProteGram.MVVM.ViewModel
         {
             Dialogs = await MainWindow.cl.client.Messages_GetAllDialogs();
 
-            foreach (var (id, user) in Dialogs.users)
+            Dialogs.CollectUsersChats(MainWindow.Users, MainWindow.Chats);
+            
+            foreach(var (id,user) in MainWindow.Users)
             {
-                //var messages = await MainWindow.cl.client.Messages_GetHistory(user.ToInputPeer(),-5);
-                //foreach (var msg in messages.Messages)
-                //{
-                //    //if(msg is Message ms)
-                //    //{
-                //    //    Messages.Add(new MessageModel
-                //    //    {
-                //    //        Username = user.username,
-                //    //        UsernameColor = "#4098ff",
-                //    //        ImageSource = user.photo,
-                //    //        Message = ms.message,
-                //    //        Time = msg.Date,
-                //    //        IsNativeOrigin = msg.ID != MainWindow.cl.my.ID ? false : true,
-                //    //        FirstMessage = false
-                //    //    });
-                        
-                //    //}
-
-                    
-                //}
-
                 Contacts.Add(new ContactModel
                 {
                     first_name = user.first_name,
@@ -69,10 +51,8 @@ namespace ProteGram.MVVM.ViewModel
                     Username = user.username,
                     ImageSource = user.photo,
                     Messages = Messages
-
                 });
             }
-
         }
 
 
@@ -99,14 +79,16 @@ namespace ProteGram.MVVM.ViewModel
             {
                 Messages.Add(new MessageModel
                 {
-                    Message = Message,
+                    Message = _message,
                     FirstMessage = false
                 });
 
-              MainWindow.cl.client.SendMessageAsync(SelectedContact.User.ToInputPeer(), Message);
+                MainWindow.cl.client.SendMessageAsync(SelectedContact.User.ToInputPeer(), Message);
+                Message = "";
+                Decorator border = VisualTreeHelper.GetChild(MainWindow.myLisview, 0) as Decorator;
+                ScrollViewer scrollViewer = border.Child as ScrollViewer;
+                scrollViewer.ScrollToEnd();
             });
-
-
             GetDialogs();
 
             #region letItBeHereForAWail

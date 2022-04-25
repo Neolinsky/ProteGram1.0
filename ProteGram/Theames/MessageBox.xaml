@@ -31,7 +31,7 @@
                             </TextBox>
 
                             <TextBlock 
-                                       Text="@Message"
+                                       Text=""
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Left"
                                        Margin="10,0,0,0"

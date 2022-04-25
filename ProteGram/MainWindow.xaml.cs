@@ -21,17 +21,23 @@ namespace ProteGram
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-
  
     public partial class MainWindow : Window
     {
+        
+        public static readonly Dictionary<long, User> Users = new();
+        public static readonly Dictionary<long, ChatBase> Chats = new();
+        public static TextBox msField;
+        public static ListView myLisview;
+
         // don't need no explanation.
         public static bool LogedIn = false;
 
         // Here I create an instance of Telegram Client, but don't initiolize it yet.
         public static TClient cl = new TClient();
         // I use it to store messages in here.
-        public Messages_MessagesBase Msgbase;
+        public  static Messages_MessagesBase Msgbase;
+        private static ContactModel? selectedContact;
 
         public  MainWindow()
         {
@@ -41,9 +47,60 @@ namespace ProteGram
 
             // After user loged in we initiolize main window components
             InitializeComponent();
-
             // If we are not loged in, this will crash my program.
             UserNameLabel.Content = $"{cl.my.first_name.ToString()}";
+            MainWindow.cl.client.Update += Client_Update;
+            msField = MessageField;
+            myLisview = ListViewDialogs;
+        }
+
+        private static async void Client_Update(IObject arg)
+        {
+            if (arg is not UpdatesBase updates) return;
+            updates.CollectUsersChats(Users, Chats);
+            foreach (var update in updates.UpdateList)
+                switch (update)
+                {
+                    case UpdateNewMessage unm:
+                        if (selectedContact != null)
+                        {
+                            RefreshMessages();
+                        }
+                     break;                 
+                }
+        }
+
+        public static async Task RefreshMessages()
+        {
+            selectedContact.Messages.Clear();
+
+            // Then we load the new ones in Msgbase.
+            Msgbase = await cl.client.Messages_GetHistory(selectedContact.User.ToInputPeer());
+
+
+
+            // Then we go throug each one message model in Msgbase, but in reverse order.
+            foreach (var msg in Msgbase.Messages.Reverse())
+            {
+                // If message model is message and not an image or gif for example, we add  the message to selectdContact.Messages
+                if (msg is Message ms)
+                {
+                    selectedContact.Messages.Add(new MessageModel
+                    {
+                        Username = selectedContact.User.username,
+                        UsernameColor = "#4098ff",
+                        ImageSource = selectedContact.User.photo,
+                        Message = ms.message,
+                        Time = ms.date,
+                        IsNativeOrigin = ms.id != cl.my.id ? false : true,
+                        FirstMessage = false
+                    });
+                    Decorator border = VisualTreeHelper.GetChild(MainWindow.myLisview, 0) as Decorator;
+                    ScrollViewer scrollViewer = border.Child as ScrollViewer;
+                    scrollViewer.ScrollToEnd();
+
+                }
+            }
         }
 
         /// <summary>
@@ -112,7 +169,7 @@ namespace ProteGram
         /// <param name="e"></param>
         private async void ContactsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ContactModel? selectedContact = ContactsListView.SelectedItem as ContactModel;
+            selectedContact = ContactsListView.SelectedItem as ContactModel;
 
             // Here we change content of user tg that you chat with.
             UserYouChatWith.Content = selectedContact.User.first_name;
@@ -122,6 +179,8 @@ namespace ProteGram
             
             // Then we load the new ones in Msgbase.
             Msgbase = await cl.client.Messages_GetHistory(selectedContact.User.ToInputPeer());
+
+            
 
             // Then we go throug each one message model in Msgbase, but in reverse order.
             foreach (var msg in Msgbase.Messages.Reverse())
