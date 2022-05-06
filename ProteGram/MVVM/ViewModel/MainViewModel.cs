@@ -85,9 +85,7 @@ namespace ProteGram.MVVM.ViewModel
 
                 MainWindow.cl.client.SendMessageAsync(SelectedContact.User.ToInputPeer(), Message);
                 Message = "";
-                Decorator border = VisualTreeHelper.GetChild(MainWindow.myLisview, 0) as Decorator;
-                ScrollViewer scrollViewer = border.Child as ScrollViewer;
-                scrollViewer.ScrollToEnd();
+                MainWindow.ScrollToEnd();
             });
             GetDialogs();
 

@@ -48,7 +48,7 @@ namespace ProteGram
             // After user loged in we initiolize main window components
             InitializeComponent();
             // If we are not loged in, this will crash my program.
-            UserNameLabel.Content = $"{cl.my.first_name.ToString()}";
+            UserNameLabel.Content = $"{cl.my.first_name}";
             MainWindow.cl.client.Update += Client_Update;
             msField = MessageField;
             myLisview = ListViewDialogs;
@@ -78,7 +78,6 @@ namespace ProteGram
             Msgbase = await cl.client.Messages_GetHistory(selectedContact.User.ToInputPeer());
 
 
-
             // Then we go throug each one message model in Msgbase, but in reverse order.
             foreach (var msg in Msgbase.Messages.Reverse())
             {
@@ -95,12 +94,17 @@ namespace ProteGram
                         IsNativeOrigin = ms.id != cl.my.id ? false : true,
                         FirstMessage = false
                     });
-                    Decorator border = VisualTreeHelper.GetChild(MainWindow.myLisview, 0) as Decorator;
-                    ScrollViewer scrollViewer = border.Child as ScrollViewer;
-                    scrollViewer.ScrollToEnd();
 
+                    ScrollToEnd();
                 }
             }
+        }
+
+        public static void ScrollToEnd()
+        {
+            Decorator border = VisualTreeHelper.GetChild(MainWindow.myLisview, 0) as Decorator;
+            ScrollViewer scrollViewer = border.Child as ScrollViewer;
+            scrollViewer.ScrollToEnd();
         }
 
         /// <summary>
@@ -201,6 +205,7 @@ namespace ProteGram
 
                 }
             }
+            ScrollToEnd();
         }
     }
 }

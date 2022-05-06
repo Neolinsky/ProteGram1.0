@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -82,7 +83,9 @@ namespace ProteGram
             ConfCodeWIndow.ShowDialog();
 
             // It waits for user to log in.
-            while(!MainWindow.LogedIn){};
+            while(!MainWindow.LogedIn){
+                Thread.Sleep(100);
+            };
 
             // And when user is finaly loged in this window closes on it's own.
             this.Close();
