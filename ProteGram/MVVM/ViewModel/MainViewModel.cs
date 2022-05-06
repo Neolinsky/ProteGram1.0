@@ -83,7 +83,8 @@ namespace ProteGram.MVVM.ViewModel
                     FirstMessage = false
                 });
 
-                MainWindow.cl.client.SendMessageAsync(SelectedContact.User.ToInputPeer(), Message);
+
+                MainWindow.cl.client.SendMessageAsync(SelectedContact.User.ToInputPeer(), AesOperation.EncryptSring(Message));
                 Message = "";
                 MainWindow.ScrollToEnd();
             });

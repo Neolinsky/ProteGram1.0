@@ -89,7 +89,7 @@ namespace ProteGram
                         Username = selectedContact.User.username,
                         UsernameColor = "#4098ff",
                         ImageSource = selectedContact.User.photo,
-                        Message = ms.message,
+                        Message = AesOperation.DecryptString(ms.message),
                         Time = ms.date,
                         IsNativeOrigin = ms.id != cl.my.id ? false : true,
                         FirstMessage = false
@@ -197,7 +197,7 @@ namespace ProteGram
                         Username = selectedContact.User.username,
                         UsernameColor = "#4098ff",
                         ImageSource = selectedContact.User.photo,
-                        Message = ms.message,
+                        Message = AesOperation.DecryptString(ms.message),
                         Time = ms.date,
                         IsNativeOrigin = ms.id != cl.my.id ? false : true,
                         FirstMessage = false
