@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <None Remove="Icons\add.png" />
+    <None Remove="Icons\lockIcon.png" />
     <None Remove="Icons\log-in.png" />
     <None Remove="Icons\send.png" />
   </ItemGroup>
@@ -23,6 +24,7 @@
 
   <ItemGroup>
     <Resource Include="Icons\add.png" />
+    <Resource Include="Icons\lockIcon.png" />
     <Resource Include="Icons\log-in.png" />
     <Resource Include="Icons\send.png" />
   </ItemGroup>

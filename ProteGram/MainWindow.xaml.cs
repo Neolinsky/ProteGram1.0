@@ -29,7 +29,7 @@ namespace ProteGram
         public static readonly Dictionary<long, ChatBase> Chats = new();
         public static TextBox msField;
         public static ListView myLisview;
-
+        public static bool Encryption = false;
         // don't need no explanation.
         public static bool LogedIn = false;
 
@@ -84,16 +84,33 @@ namespace ProteGram
                 // If message model is message and not an image or gif for example, we add  the message to selectdContact.Messages
                 if (msg is Message ms)
                 {
-                    selectedContact.Messages.Add(new MessageModel
+                    if (Encryption)
                     {
-                        Username = selectedContact.User.username,
-                        UsernameColor = "#4098ff",
-                        ImageSource = selectedContact.User.photo,
-                        Message = AesOperation.DecryptString(ms.message),
-                        Time = ms.date,
-                        IsNativeOrigin = ms.id != cl.my.id ? false : true,
-                        FirstMessage = false
-                    });
+                        selectedContact.Messages.Add(new MessageModel
+                        {
+                            Username = selectedContact.User.username,
+                            UsernameColor = "#4098ff",
+                            ImageSource = selectedContact.User.photo,
+                            Message = AesOperation.DecryptString(ms.message),
+                            Time = ms.date,
+                            IsNativeOrigin = ms.id != cl.my.id ? false : true,
+                            FirstMessage = false
+                        });
+                    }
+                    else
+                    {
+                        selectedContact.Messages.Add(new MessageModel
+                        {
+                            Username = selectedContact.User.username,
+                            UsernameColor = "#4098ff",
+                            ImageSource = selectedContact.User.photo,
+                            Message = ms.message,
+                            Time = ms.date,
+                            IsNativeOrigin = ms.id != cl.my.id ? false : true,
+                            FirstMessage = false
+                        });
+                    }
+                   
 
                     ScrollToEnd();
                 }
@@ -159,10 +176,17 @@ namespace ProteGram
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private void lockIcon(object sender, RoutedEventArgs e)
         {
-            Window LoginWindnow = new LogIn();
-            LoginWindnow.ShowDialog();
+            if (Encryption)
+            {
+                Encryption = false;
+            }
+            else
+            {
+                Window GetEncKey = new GetEnctyptionKey();
+                GetEncKey.Show();
+            }
         }
 
 
@@ -185,26 +209,51 @@ namespace ProteGram
             Msgbase = await cl.client.Messages_GetHistory(selectedContact.User.ToInputPeer());
 
             
-
-            // Then we go throug each one message model in Msgbase, but in reverse order.
-            foreach (var msg in Msgbase.Messages.Reverse())
+            if(Encryption == true)
             {
-                // If message model is message and not an image or gif for example, we add  the message to selectdContact.Messages
-                if (msg is Message ms)
+                // Then we go throug each one message model in Msgbase, but in reverse order.
+                foreach (var msg in Msgbase.Messages.Reverse())
                 {
-                   selectedContact.Messages.Add(new MessageModel
+                    // If message model is message and not an image or gif for example, we add  the message to selectdContact.Messages
+                    if (msg is Message ms)
                     {
-                        Username = selectedContact.User.username,
-                        UsernameColor = "#4098ff",
-                        ImageSource = selectedContact.User.photo,
-                        Message = AesOperation.DecryptString(ms.message),
-                        Time = ms.date,
-                        IsNativeOrigin = ms.id != cl.my.id ? false : true,
-                        FirstMessage = false
-                    });
+                        selectedContact.Messages.Add(new MessageModel
+                        {
+                            Username = selectedContact.User.username,
+                            UsernameColor = "#4098ff",
+                            ImageSource = selectedContact.User.photo,
+                            Message = AesOperation.DecryptString(ms.message),
+                            Time = ms.date,
+                            IsNativeOrigin = ms.id != cl.my.id ? false : true,
+                            FirstMessage = false
+                        });
 
+                    }
                 }
             }
+            else
+            {
+                // Then we go throug each one message model in Msgbase, but in reverse order.
+                foreach (var msg in Msgbase.Messages.Reverse())
+                {
+                    // If message model is message and not an image or gif for example, we add  the message to selectdContact.Messages
+                    if (msg is Message ms)
+                    {
+                        selectedContact.Messages.Add(new MessageModel
+                        {
+                            Username = selectedContact.User.username,
+                            UsernameColor = "#4098ff",
+                            ImageSource = selectedContact.User.photo,
+                            Message = ms.message,
+                            Time = ms.date,
+                            IsNativeOrigin = ms.id != cl.my.id ? false : true,
+                            FirstMessage = false
+                        });
+
+                    }
+                }
+            }
+            
             ScrollToEnd();
         }
     }

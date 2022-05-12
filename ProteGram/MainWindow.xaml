@@ -109,10 +109,10 @@
 
                 <Button Width="35" Height="35" 
                         Margin="20,0,10,0"
-                        BorderThickness="0" Click="Button_Click_3"
-                            Background="Transparent" x:Name="DoorButton">
+                        BorderThickness="0" Click="lockIcon"
+                            Background="Transparent" x:Name="LockIcon">
                     <Grid>
-                        <Image Source="./Icons/log-in.png" Stretch="Fill" />
+                        <Image Source="./Icons/lockIcon.png" Stretch="Fill" />
                     </Grid>
 
                 </Button>

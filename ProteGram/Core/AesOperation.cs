@@ -12,7 +12,7 @@ namespace ProteGram.Core
 {
     internal class AesOperation
     {
-        private readonly static string secret = "b14ca5898a4e4133bbce2ea2315a1916";
+        public static string secret { get; set; }
 
         public static string EncryptSring(string plainText)
         {

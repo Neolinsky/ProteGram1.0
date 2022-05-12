@@ -83,8 +83,14 @@ namespace ProteGram.MVVM.ViewModel
                     FirstMessage = false
                 });
 
-
-                MainWindow.cl.client.SendMessageAsync(SelectedContact.User.ToInputPeer(), AesOperation.EncryptSring(Message));
+                if(MainWindow.Encryption == true)
+                {
+                    MainWindow.cl.client.SendMessageAsync(SelectedContact.User.ToInputPeer(), AesOperation.EncryptSring(Message));
+                }
+                else
+                {
+                    MainWindow.cl.client.SendMessageAsync(SelectedContact.User.ToInputPeer(), Message);
+                }
                 Message = "";
                 MainWindow.ScrollToEnd();
             });
