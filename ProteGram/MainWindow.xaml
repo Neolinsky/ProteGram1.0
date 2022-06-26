@@ -178,9 +178,7 @@
                            Width="20" Height="20"
                            RenderOptions.BitmapScalingMode="Fant"
                            Margin="5,5,16,0"/>
-
                 </StackPanel>
-
             </Grid>
         </Grid>
     </Grid>
