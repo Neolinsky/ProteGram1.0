@@ -112,7 +112,7 @@
                         Background="Transparent" x:Name="LockIcon">
                     
                     <Grid>
-                        <Image Source="./Icons/lockIcon.png" Stretch="Fill" />
+                        <Image Source="./Icons/lockIcon.png" Stretch="Fill"/>
                     </Grid>
                     
                 </Button>
@@ -148,9 +148,10 @@
                       ItemContainerStyle="{StaticResource ChatItem}"
                       Margin="8,0,0,0"
                       Grid.Row="1"
-                      x:Name="ListViewDialogs">
-                
-            </ListView>
+                      x:Name="ListViewDialogs"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
+            
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
