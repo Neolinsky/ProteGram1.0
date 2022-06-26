@@ -65,11 +65,19 @@
             <Label Content="Don't tell it anyone."
                    Margin="0,0,5,0" Width="200"/>
 
-            <Button Height="40"
-                    Background="#FF74719A" Width="180"
-                    Content="Confirm Kode"
-                    Foreground="White" x:Name="Confirmkey"
-                    Click="Confirmkey_Click"/>
+            <StackPanel Orientation="Horizontal">
+                <Button Height="40"
+                        Background="#FF74719A" Width="90"
+                        Content="Confirm Kode"
+                        Foreground="White" x:Name="Confirmkey"
+                        Click="Confirmkey_Click" Margin="8,5,0,0"/>
+                
+                <Button Height="40"
+                        Background="#FF74719A" Width="90"
+                        Content="Generate Random"
+                        Foreground="White" x:Name="GenerateNewKey"
+                        Click="GenerateNewKey_OnClick" Margin="0,5,8,0"/>
+            </StackPanel>
 
 
 

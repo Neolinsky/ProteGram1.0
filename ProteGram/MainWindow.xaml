@@ -81,17 +81,16 @@
                       Grid.Row="1"
                       x:Name="ContactsListView"
                       ItemContainerStyle="{StaticResource ContactCard}"
-                      SelectionChanged="ContactsListView_SelectionChanged"/>
+                      SelectionChanged="ContactsListView_SelectionChanged"
+                      HorizontalContentAlignment="Left"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
 
 
             <!-- Status indecator
                 at least for now.. When the time comes i will change it -->
             <StackPanel Grid.Row="2" Orientation="Horizontal"
                         Background="#292B2F">
-
-                <Border CornerRadius="25" Width="30" Height="30"
-                        Background="#3BFF6F"
-                        Margin="18,0,0,0"/>
 
                 <StackPanel VerticalAlignment="Center">
                     <Label Content="Username"
@@ -100,7 +99,7 @@
                            Margin="0,-5,0,-5"
                            x:Name="UserNameLabel"/>
 
-                    <Label Content="Custom Status"
+                    <Label Content="Welcom Back"
                            FontWeight="SemiBold"
                            Foreground="Gray"
                            FontSize="10"
@@ -108,17 +107,15 @@
                 </StackPanel>
 
                 <Button Width="35" Height="35" 
-                        Margin="20,0,10,0"
+                        Margin="60,0,10,0"
                         BorderThickness="0" Click="lockIcon"
-                            Background="Transparent" x:Name="LockIcon">
+                        Background="Transparent" x:Name="LockIcon">
+                    
                     <Grid>
                         <Image Source="./Icons/lockIcon.png" Stretch="Fill" />
                     </Grid>
-
+                    
                 </Button>
-
-
-
             </StackPanel>
 
         </Grid>
